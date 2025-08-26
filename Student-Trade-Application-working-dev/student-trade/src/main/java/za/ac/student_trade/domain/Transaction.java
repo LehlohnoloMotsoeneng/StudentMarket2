@@ -1,7 +1,7 @@
 package za.ac.student_trade.domain;
 
 import jakarta.persistence.*;
-import lombok.Builder;
+
 
 import java.time.LocalDateTime;
 

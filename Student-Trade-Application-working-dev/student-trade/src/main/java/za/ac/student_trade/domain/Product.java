@@ -1,8 +1,12 @@
 package za.ac.student_trade.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.Builder;
+
+import java.time.LocalDate;
+import java.util.Arrays;
+
 
 @Entity
 @Table(name = "product")
@@ -31,16 +35,26 @@ public class Product {
     @Column(name = "availability")
     private boolean availabilityStatus;
 
-    @Column(name = "product_image")
-    private String productImageUrl;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @Column(name = "release_date")
+    private LocalDate releaseDate;
+
+    @Column(name = "imageName")
+    private String imageName;
+    @Column(name = "imageType")
+    private String imageType;
+
+    @Lob
+    @Column(name = "imageData")
+    private byte[] imageData;
 
     @ManyToOne
     @JoinColumn(name = "seller_id")
-//    @JsonIgnoreProperties({"email", "residence", "password", "address", "productForSale"})
     @JsonIgnoreProperties({"productForSale", "purchases"})
     private Student seller;
 
     @OneToOne(mappedBy = "product")
+    @JsonIgnoreProperties("product")
     private Transaction transaction;
 
     public Product() {
@@ -54,7 +68,10 @@ public class Product {
         this.price = builder.price;
         this.productCategory = builder.productCategory;
         this.availabilityStatus = builder.availabilityStatus;
-        this.productImageUrl = builder.productImageUrl;
+        this.imageName = builder.imageName;
+        this.imageType = builder.imageType;
+        this.imageData = builder.imageData;
+        this.releaseDate = builder.releaseDate;
         this.seller = builder.seller;
         this.transaction = builder.transaction;
     }
@@ -87,16 +104,27 @@ public class Product {
         return availabilityStatus;
     }
 
-    public String getProductImageUrl() {
-        return productImageUrl;
-    }
-
     public Student getSeller() {
         return seller;
     }
 
     public Transaction getTransaction() {
         return transaction;
+    }
+
+    public LocalDate getReleaseDate() {
+        return releaseDate;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+    public String getImageType() {
+        return imageType;
+    }
+
+    public byte[] getImageData() {
+        return imageData;
     }
 
     @Override
@@ -109,7 +137,10 @@ public class Product {
                 ", price=" + price +
                 ", productCategory=" + productCategory +
                 ", availabilityStatus=" + availabilityStatus +
-                ", productImageUrl='" + productImageUrl + '\'' +
+                ", releaseDate=" + releaseDate +
+                ", imageName='" + imageName + '\'' +
+                ", imageType='" + imageType + '\'' +
+                ", imageDate=" + Arrays.toString(imageData) + '\'' +
                 ", seller=" + seller +
                 ", transaction=" + transaction +
                 '}';
@@ -123,7 +154,10 @@ public class Product {
         private Double price;
         private String productCategory;
         private boolean availabilityStatus;
-        private String productImageUrl;
+        private LocalDate releaseDate;
+        private String imageName;
+        private String imageType;
+        private byte[] imageData;
         private Student seller;
         private Transaction transaction;
 
@@ -162,10 +196,6 @@ public class Product {
             return this;
         }
 
-        public Builder setProductImageUrl(String productImageUrl) {
-            this.productImageUrl = productImageUrl;
-            return this;
-        }
 
         public Builder setSeller(Student seller) {
             this.seller = seller;
@@ -177,6 +207,26 @@ public class Product {
             return this;
         }
 
+        public Builder setReleaseDate(LocalDate releaseDate) {
+            this.releaseDate = releaseDate;
+            return this;
+        }
+
+        public Builder setImageName(String imageName) {
+            this.imageName = imageName;
+            return this;
+        }
+
+        public Builder setImageType(String imageType) {
+            this.imageType = imageType;
+            return this;
+        }
+
+        public Builder setImageData(byte[] imageData) {
+            this.imageData = imageData;
+            return this;
+        }
+
         public Builder copy(Product product) {
             this.productId = product.getProductId();
             this.productName = product.getProductName();
@@ -185,7 +235,10 @@ public class Product {
             this.price = product.getPrice();
             this.productCategory = product.getProductCategory();
             this.availabilityStatus = product.isAvailabilityStatus();
-            this.productImageUrl = product.getProductImageUrl();
+            this.releaseDate = product.getReleaseDate();
+            this.imageData = product.getImageData();
+            this.imageName = product.getImageName();
+            this.imageType = product.getImageType();
             this.seller = product.getSeller();
             this.transaction = product.getTransaction();
             return this;
@@ -199,7 +252,10 @@ public class Product {
             this.price = product.getPrice();
             this.productCategory = product.getProductCategory();
             this.availabilityStatus = product.isAvailabilityStatus();
-            this.productImageUrl = product.getProductImageUrl();
+            this.releaseDate = product.getReleaseDate();
+            this.imageName = product.getImageName();
+            this.imageType = product.getImageType();
+            this.imageData = product.getImageData();
             this.seller = product.getSeller();
             this.transaction = product.getTransaction();
             return this;

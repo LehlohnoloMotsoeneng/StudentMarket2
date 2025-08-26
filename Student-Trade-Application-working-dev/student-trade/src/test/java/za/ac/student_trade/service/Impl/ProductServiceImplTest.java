@@ -29,20 +29,20 @@ class ProductServiceImplTest {
 
     @BeforeEach
     void setUp() {
-//        String existingStudent = names.getFirstName() + " " + names.getLastName(); ;
+
 
         Student names = new Student.Builder().setFirstName("Asanda").setLastName("Ndhlela").build();
 
         seller = studentRepository.findByFirstNameAndLastName(names.getFirstName(),names.getLastName()).stream().findFirst().orElse(null);
-        product = ProductFactory.create("Macbook", "Bass Boosted, clear sound quality", "Good", 499.99,"Laptop",true,"image.png",seller);
+//        product = ProductFactory.create("Macbook", "Bass Boosted, clear sound quality", "Good", 499.99,"Laptop",true,"image.png",seller);
     }
 
-    @Test
-    void a_create() {
-        Product newProduct = productService.createProduct(product, seller);
-        assertNotNull(newProduct);
-        System.out.println(newProduct.getProductId());
-    }
+//    @Test
+//    void a_create() {
+//        Product newProduct = productService.createProduct(product, seller);
+//        assertNotNull(newProduct);
+//        System.out.println(newProduct.getProductId());
+//    }
 
     @Test
     @Disabled

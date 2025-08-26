@@ -31,14 +31,14 @@ public class TransactionServiceImpl implements ITransactionService {
     @Override
     public Transaction createTransaction(Transaction transaction, Long productSoldId, String buyerId) {
 
-        Product productSold = productRepository.findById(productSoldId).get();
+        Product productSold = productRepository.findById(productSoldId).orElse(null);
 
-        Student buyer = studentRepository.findById(buyerId).get();
+        Student buyer = studentRepository.findById(buyerId).orElse(null);
 
         Transaction newTransaction = new Transaction.Builder()
                 .setTransactionId(UUID.randomUUID().toString())
                 .setTransactionDate(LocalDateTime.now())
-                .setImageOfProduct(productSold.getProductImageUrl())
+//                .setImageOfProduct(productSold.getProductImageUrl())
                 .setProductLabel(productSold.getProductName())
                 .setProductDescription(productSold.getProductDescription())
                 .setProductCondition(productSold.getCondition())

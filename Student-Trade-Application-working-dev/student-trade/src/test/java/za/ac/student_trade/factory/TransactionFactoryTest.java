@@ -21,7 +21,7 @@ class TransactionFactoryTest {
                 .setPrice(1500.0)
                 .setProductCategory("Electronics")
                 .setAvailabilityStatus(true)
-                .setProductImageUrl("image.jpg")
+//                .setProductImageUrl("image.jpg")
                 .build();
 
         Student buyer = new Student.Builder()

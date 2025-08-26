@@ -5,5 +5,5 @@ import za.ac.student_trade.domain.Administrator;
 import java.util.List;
 
 public interface IAdministratorService extends IService <Administrator, Long>{
-   // List<Administrator> getAll();
+    List<Administrator> findByEmailAndPassword(String email, String password);
 }

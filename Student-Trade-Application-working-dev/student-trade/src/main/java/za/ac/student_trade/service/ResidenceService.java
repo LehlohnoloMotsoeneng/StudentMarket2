@@ -14,7 +14,6 @@ public interface ResidenceService<T, ID> {
 
     Residence update(Residence residence);
 
-
     List<Residence> getAll();
 
 

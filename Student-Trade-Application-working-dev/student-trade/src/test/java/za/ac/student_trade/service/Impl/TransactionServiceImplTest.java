@@ -100,12 +100,6 @@ class TransactionServiceImplTest {
 
         }
 
-//        @Test
-//        @Order(5)
-//        void delete() {
-//            boolean deleted = transactionService.delete(transaction.getTransactionId());
-//
-//        }
     }
 
 //}

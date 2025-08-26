@@ -2,7 +2,11 @@ package za.ac.student_trade.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import za.ac.student_trade.domain.Product;
 import za.ac.student_trade.service.Impl.ProductServiceImpl;
 
@@ -20,9 +24,24 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @PostMapping("/create")
-    public Product createProduct(@RequestBody Product product) {
-        return this.productService.create(product);
+    @PostMapping(value = "/create", consumes = "multipart/form-data")
+    public ResponseEntity<Product> createProduct(@RequestPart Product product, @RequestPart MultipartFile productImage) {
+        try{
+            System.out.println("ProductController.createProduct");
+            Product newProduct = productService.addProduct(product, productImage);
+            System.out.println("ProductController");
+            return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
+        }catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/buy")
+    public ResponseEntity<byte[]> getProductImage(@RequestParam("productId") Long productId){
+        Product product = productService.getProductById(productId);
+        byte[] imageFile = product.getImageData();
+
+        return ResponseEntity.ok().contentType(MediaType.valueOf(product.getImageType())).body(imageFile);
     }
 
     @GetMapping("/read/{id}")

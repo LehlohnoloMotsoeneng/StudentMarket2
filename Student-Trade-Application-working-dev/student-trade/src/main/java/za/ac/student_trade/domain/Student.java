@@ -1,14 +1,13 @@
 package za.ac.student_trade.domain;
 
 import jakarta.persistence.*;
-
 import java.util.List;
 
 @Entity
 @Table(name = "student")
 public class Student {
 
-    @Id
+    @Id @Column(name = "student_id")
     protected String studentId;
 
     @Column(name = "first_name", nullable = false)
@@ -17,7 +16,7 @@ public class Student {
     @Column(name = "last_name", nullable = false)
     protected String lastName;
 
-    @Column(name = "email",nullable = false)
+    @Column(name = "email", nullable = false)
     protected String email;
 
     @Column(name = "password", nullable = false)
@@ -33,7 +32,6 @@ public class Student {
     @OneToMany(mappedBy = "buyer")
     protected List<Transaction> purchases;
 
-
     protected Student() {}
 
     public Student(Builder builder) {
@@ -45,7 +43,6 @@ public class Student {
         this.residence = builder.residence;
         this.productForSale = builder.productForSale;
         this.purchases = builder.purchases;
-
     }
 
     public String getStudentId() {
@@ -88,12 +85,11 @@ public class Student {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", address=" + residence + '\'' +
-                ", productForSale=" + productForSale + '\'' +
+                ", residence=" + residence +
+                ", productForSale=" + productForSale +
                 ", purchases=" + purchases +
                 '}';
     }
-
 
     public static class Builder {
         private String studentId;
@@ -145,8 +141,8 @@ public class Student {
             return this;
         }
 
-        public Builder builder(Student student) {
-            this.studentId = student.getStudentId();
+        public Builder copy(Student student) {
+            this.studentId = student.studentId;
             this.firstName = student.getFirstName();
             this.lastName = student.getLastName();
             this.email = student.getEmail();
@@ -157,21 +153,8 @@ public class Student {
             return this;
         }
 
-        public Builder copy(Student student) {
-            this.studentId = student.studentId;
-            this.firstName = student.firstName;
-            this.lastName = student.lastName;
-            this.email = student.email;
-            this.password = student.password;
-            this.residence = student.residence;
-            this.productForSale = student.productForSale;
-            this.purchases = student.purchases;
-            return this;
-        }
         public Student build() {
             return new Student(this);
         }
     }
-
-
 }

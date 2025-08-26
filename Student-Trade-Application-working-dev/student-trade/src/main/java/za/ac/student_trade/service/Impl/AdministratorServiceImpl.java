@@ -3,6 +3,7 @@ package za.ac.student_trade.service.Impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.ac.student_trade.domain.Administrator;
+import za.ac.student_trade.domain.Student;
 import za.ac.student_trade.repository.AdministratorRepository;
 import za.ac.student_trade.service.IAdministratorService;
 
@@ -36,6 +37,16 @@ public class AdministratorServiceImpl implements IAdministratorService {
     @Override
     public List<Administrator> getAll() {
         return administratorRepository.findAll();
+    }
+
+    @Override
+    public List<Administrator> findByEmailAndPassword(String email, String password) {
+        System.out.println("Searching for email: '" + email + "' and password: '" + password + "'");
+
+        List<Administrator> result = this.administratorRepository.findByEmailAndPassword(email, password);
+        System.out.println("Found " + result.size() + " administrator");
+
+        return result;
     }
 }
 

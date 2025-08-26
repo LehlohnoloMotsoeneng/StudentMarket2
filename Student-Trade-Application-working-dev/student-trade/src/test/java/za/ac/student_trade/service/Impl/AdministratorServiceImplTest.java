@@ -23,7 +23,7 @@ class AdministratorServiceImplTest {
 
     @BeforeAll
     static void beforeAll() {
-        admin = AdministratorFactory.createAdministrator("admin_user", "admin@example.com", "P@ssword123");
+        admin = AdministratorFactory.createAdministrator("hloni", "hloniyacho@gmail.com", "Password");
     }
 
     @Test

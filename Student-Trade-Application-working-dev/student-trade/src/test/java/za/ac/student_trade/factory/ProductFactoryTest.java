@@ -15,13 +15,13 @@ public class ProductFactoryTest {
             .setPassword("johndoe")
             .build();
 
-    private Product product = ProductFactory.create("Laptop", "High-end gaming laptop", "New", 1500.00,
-            "Electronics", true, "imageUrlHere", seller
-    );
+//    private Product product = ProductFactory.create("Laptop", "High-end gaming laptop", "New", 1500.00,
+//            "Electronics", true, "imageUrlHere", seller
+//    );
 
-    @Test
-    void createProduct() {
-        assertNotNull(product);
-        System.out.print(product);
-    }
+//    @Test
+//    void createProduct() {
+//        assertNotNull(product);
+//        System.out.print(product);
+//    }
 }

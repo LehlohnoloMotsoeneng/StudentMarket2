@@ -4,8 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import za.ac.student_trade.domain.Administrator;
 
+import java.util.List;
+
 public interface AdministratorRepository extends JpaRepository<Administrator, Long> {
-//    Optional<Administrator> findByEmail(String email);
-//    Optional<Administrator> findByUsernam(String username);
+    List<Administrator> findByEmailAndPassword(String password, String email);
 
 }
