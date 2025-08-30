@@ -11,4 +11,5 @@ public interface IProductService extends IService<Product, Long>{
 //    Product createProduct(Product product, Student seller);
     Product addProduct(Product product, MultipartFile imageFile) throws IOException;
     Product getProductById(Long id);
+    void delete(Long id);
 }

@@ -16,45 +16,11 @@ import java.util.List;
 public class ProductServiceImpl implements IProductService {
 
     private ProductRepository productRepository;
-    private StudentRepository studentRepository;
 
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository, StudentRepository studentRepository) {
+    public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
-        this.studentRepository = studentRepository;
     }
-
-//    @Override
-//    public Product createProduct(Product product, Student sellerDetails) {
-//        List<Student> seller = studentRepository.findByFirstNameAndLastName(sellerDetails.getFirstName(),sellerDetails.getLastName());
-//
-//
-//        if (seller.isEmpty()) {
-//            throw new RuntimeException("Seller not found with name: " +
-//                    sellerDetails.getFirstName() + " " + sellerDetails.getLastName());
-//        }
-//
-//        // Optional: Handle duplicates
-//        if (seller.size() > 1) {
-//            throw new RuntimeException("Multiple sellers found with name: " +
-//                    sellerDetails.getFirstName() + " " + sellerDetails.getLastName());
-//        }
-//
-//        Student currentSeller = seller.getFirst();
-//
-//        Product newProduct = ProductFactory.create(
-//                product.getProductName(),
-//                product.getProductDescription(),
-//                product.getCondition(),
-//                product.getPrice(),
-//                product.getProductCategory(),
-//                product.isAvailabilityStatus(),
-//                product.getProductImageUrl(),
-//                currentSeller
-//        );
-//
-//        return productRepository.save(newProduct);
-//    }
 
     @Override
     public Product addProduct(Product product, MultipartFile imageFile) throws IOException {
@@ -100,4 +66,9 @@ public class ProductServiceImpl implements IProductService {
     public List<Product> getAll() {
         return productRepository.findAll();
     }
+    @Override
+    public void delete(Long productId) {
+        productRepository.deleteById(productId);
+    }
+
 }

@@ -50,6 +50,13 @@ public class StudentController {
     public List<Student> getAll() {
         return this.studentService.getAll();
     }
+    // In StudentController
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteStudent(@PathVariable String id) {
+        studentService.delete(id);
+        return ResponseEntity.ok().build();
+    }
+
 
     @GetMapping("/login")
     public ResponseEntity<?> login(@RequestParam String email, @RequestParam String password) {
