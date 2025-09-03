@@ -57,13 +57,17 @@ public class TransactionServiceImpl implements ITransactionService {
 
     @Override
     public Transaction read(String id) {
-        return transactionRepository.findById(id).get();
+        return transactionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Transaction not found with id: " + id));
     }
+
 
     @Override
     public Transaction update(Transaction transaction) {
         return transactionRepository.save(transaction);
     }
+
+
 
     @Override
     public List<Transaction> getAll(){
